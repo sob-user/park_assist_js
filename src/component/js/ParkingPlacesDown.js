@@ -20,6 +20,8 @@ export class ParkingPlacesDown extends Component {
     componentDidUpdate(prevProps) {
         const action = this.props.action
         const sidewalkLeft = this.props.game.left
+        const isStarted = this.props.game.start
+
         if(this.state.loaded === false) {
             this.setState({loaded: true})
             if(this.state.placesDown.length !== 0) {
@@ -40,6 +42,13 @@ export class ParkingPlacesDown extends Component {
                 document.getElementsByClassName('ParkingPlacesDown')[0].style.border='1px dashed white'
             }
             else if(sidewalkLeft === false) {
+                document.getElementsByClassName('ParkingPlacesDown')[0].style.background='none'
+                document.getElementsByClassName('ParkingPlacesDown')[0].style.border='none'
+            }
+        }
+
+        if(isStarted !== prevProps.isStarted) {
+            if(isStarted !== false) {
                 document.getElementsByClassName('ParkingPlacesDown')[0].style.background='none'
                 document.getElementsByClassName('ParkingPlacesDown')[0].style.border='none'
             }
