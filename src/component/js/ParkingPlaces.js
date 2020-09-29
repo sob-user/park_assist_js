@@ -5,25 +5,46 @@ import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import {Animated} from "react-animated-css"
 import  car  from '../img/25667859102.png'
+import { actionsReset } from '../../actions/gameAction'
 
 export class ParkingPlaces extends Component {
     state = {
-        occupatioRateUp: 50,
         placesUp: {},
-        loaded: null
+        loaded: null,
+        totalPlaces: null
     }
 
     componentDidMount() {
-        this.generateTablePlaces(4, this.state.occupatioRateUp)
+        this.generateTablePlaces(4, this.props.game.rate)
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        const action = this.props.action
+        const sidewalkRight = this.props.game.right
         if(this.state.loaded === false) {
             this.setState({loaded: true})
-        if(this.state.placesUp.length !== 0) {
-            this.props.placesUp(this.state.placesUp)
+            if(this.state.placesUp.length !== 0) {
+                this.props.placesUp(this.state.placesUp)
+            }
         }
-    }
+
+        if(action !== prevProps.action) {
+            if(action=== 'SET_OCCUPATION_RATE') {
+                this.generateTablePlaces(4, this.props.game.rate)
+                this.props.actionsReset()
+            }
+        }
+
+        if(sidewalkRight !== prevProps.sidewalkRight) {
+            if(sidewalkRight === true) {
+                document.getElementsByClassName('ParkingPlaces')[0].style.background='#36c8f440'
+                document.getElementsByClassName('ParkingPlaces')[0].style.border='1px dashed white'
+            }
+            else if(sidewalkRight === false) {
+                document.getElementsByClassName('ParkingPlaces')[0].style.background='none'
+                document.getElementsByClassName('ParkingPlaces')[0].style.border='none'
+            }
+        }
     }
 
     generateTablePlaces = (numOfPlaces, occupatioRate) => {
@@ -57,7 +78,7 @@ export class ParkingPlaces extends Component {
     }
 
     render() {
-        const places = this.props.places
+        const places = this.props.placesU
         const {css} = this.props
         const {ParkingPlaceUp} = css
         const {ParkingPlaceUpCar} = css
@@ -84,15 +105,19 @@ export class ParkingPlaces extends Component {
 
 ParkingPlaces.propTypes = {
     placesUp: propTypes.func.isRequired,
+    actionsReset: propTypes.func.isRequired,
     css: propTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    places: state.places.up,
-    css: state.css.css
+    placesU: state.places.up,
+    placesD: state.places.down,
+    css: state.css.css,
+    game: state.game,
+    action: state.action.msg
 })
 
 export default connect(
 mapStateToProps,
-{placesUp})
+{placesUp, actionsReset})
 (ParkingPlaces)

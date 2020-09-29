@@ -113,7 +113,8 @@ export const css = {
     parkingPlaces: {
         width: '100%',
         height: '50%',
-        display: 'flex'
+        display: 'flex',
+        borderRadius: '10px'
     },
 
     ParkingPlaceUp : {
@@ -121,8 +122,7 @@ export const css = {
         width: '25%',
         display: 'flex',
         textAlign: 'center',
-        alignItems: 'center',
-        border: '1px solid white'
+        alignItems: 'center'
     },
 
     ParkingPlaceDown: {
@@ -130,8 +130,7 @@ export const css = {
         width: '12.5%',
         display: 'flex',
         textAlign: 'center',
-        alignItems: 'center',
-        border: '1px solid white'
+        alignItems: 'center'
     },
 
     ParkingPlaceUpCar: {
@@ -147,7 +146,8 @@ export const css = {
     parkingPlacesBottom: {
         width: '100%',
         height: '80%',
-        display: 'flex'
+        display: 'flex',
+        borderRadius: '10px'
     },
 
     marginBlockBottom: {
@@ -163,13 +163,118 @@ export const css = {
         background: '#2f2929',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'space-around'
     },
 
     startGame: {
-        height: '130px',
-        width: '130px',
-        background:'green'
+        height: '60px',
+        width: '180px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    StartGameButton: {
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        textAlign: 'center',
+        fontSize: '0.6em',
+        background: '#feae05',
+        color: 'white',
+        textTransform: 'uppercase'
+    },
+
+    OccupationRate: {
+        height: '50%',
+        width: '180px'
+    },
+
+    OccupationRateTitle: {
+        height: '30%',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '0.5em',
+        color: '#feae05'
+    },
+
+    OccupationRateSet: {
+        height: '70%',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        color: '#feae05'
+    },
+
+    Less: {
+        height: '80%',
+        width: '30%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    DisplayOccupationRate: {
+        height: '80%',
+        width: '40%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    More: {
+        height: '80%',
+        width: '30%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    ChooseYourSide: {
+        height: '50%',
+        width: '180px',
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+        color: '#feae05'
+    },
+
+    ChooseYourSideTitle: {
+        height: '30%',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '0.5em'
+    },
+
+    ChooseYourSideArrows: {
+        height: '70%',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '2em'
+    },
+
+    ParkRightSide: {
+        height: '80%',
+        width: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    ParkLeftSide: {
+        height: '80%',
+        width: '50%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 
     animationCar: {
