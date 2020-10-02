@@ -4,114 +4,145 @@ import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 
 export class Road extends Component {
-    componentDidUpdate() {
-        const action = this.props.action
-
-            if(action === 'STARTING_GAME') {
-                this.findEmptyPlacesAndLaunchAnimantion()
-            }
+    
+    state= {
+        blockInfiniteLoop: false
     }
 
-    findEmptyPlacesAndLaunchAnimantion() {
-        const places =this.props.places
-        const up = places.up
-        const arrayPosition = [522, 452, 350, 248]
-        const blank = []
-        up.map((place, index) => {
+    componentDidUpdate() {
+        const action = this.props.action
+        const rightSide = this.props.game.right
+        const leftSide = this.props.game.left
+        const blockInfiniteLoop = this.state.blockInfiniteLoop
+
+        if(action === 'STARTING_GAME') {
+            if(leftSide === true) {
+                if(blockInfiniteLoop !== true) {
+                this.setState({blockInfiniteLoop: true})
+                this.findEmptyPlacesAndLaunchAnimation(false)
+                }
+            }
+            else if(rightSide === true) {
+                if(blockInfiniteLoop !== true) {
+                this.setState({blockInfiniteLoop: true})
+                this.findEmptyPlacesAndLaunchAnimation(true)
+                }
+            }
+        }
+    }
+
+    findEmptyPlacesAndLaunchAnimation(booleanSide) {
+        const rightOrLeft = booleanSide
+        const placesRight  =this.props.places.up
+        const placesLeft  =this.props.places.down
+        const toggleLeftRight = rightOrLeft ? placesRight : placesLeft
+        const positionToStartRear = [522, 452, 350, 248]
+        const howManyPlacesIsFree = []
+        const finalPositions = [437, 335, 232, 129]
+        const finalPositionsOfFirstFreePlaces = []
+        const finalPositionsifNoFreePlaces = 572
+        toggleLeftRight.map((place, index) => {
             if(place.isEmpty === true) {
-                blank.push(arrayPosition[index])
+                howManyPlacesIsFree.push(positionToStartRear[index])
+                finalPositionsOfFirstFreePlaces.push(finalPositions[index])
             }
             return null
         })
 
-        if(blank.length === 1) {
-            this.launchAnimationAfterCountdown(blank[0])
+        if(howManyPlacesIsFree.length === 1) {
+            this.countdownBeforeForward(howManyPlacesIsFree[0], false, finalPositionsOfFirstFreePlaces[0], rightOrLeft)
         } 
-        else if(blank.length === 0) {
-            this.launchAnimationAfterCountdown(90)
+        else if(howManyPlacesIsFree.length === 0) {
+            this.countdownBeforeForward(finalPositionsifNoFreePlaces, true)
         }
         else {
-            this.launchAnimationAfterCountdown(blank[1])
+            this.countdownBeforeForward(howManyPlacesIsFree[1], false, finalPositionsOfFirstFreePlaces[1], rightOrLeft)
         }
     }
 
-    launchAnimationAfterCountdown(position) {
+    countdownBeforeForward(position, isFull, finalPosition, rightOrLeft) {
         setTimeout(() => { 
-            this.modifyWidthAndAnimationCar(position)
+            this.moveForwardUntilPosition(position, isFull, finalPosition, rightOrLeft)
         }, 2000)
     }
 
-    modifyWidthAndAnimationCar = (position) => {
-        const animationCarDiv = document.getElementsByClassName('Car')[0]
-        let counter = 0
-                const aa = setInterval(() => { 
-                    counter = counter - 0.5
-                    animationCarDiv.style.transform=`translate(${counter}%, 0%)`
-                    if(counter < -[position]) {
-                        clearInterval(aa)
-                        this.engageRear(counter)
-                    }
-                }, 20)
-    }
+    moveForwardUntilPosition = (position, isFull, finalPosition, rightOrLeft) => {
+        const car = document.getElementsByClassName('Car')[0]
+        let positionOnX = 0
 
-    engageRear = (counter) => {
-        const animationCarDiv = document.getElementsByClassName('Car')[0]
-        let a = counter
-        let b = 0
-        let c = 0
-        const et = setInterval(() => { 
-            a = a + 0.1
-            b = b - 0.06
-            c = c - 0.05
-            // animationCarDiv.style.left=`-${a}%`
-            // animationCarDiv.style.top=`${b}%`
-            animationCarDiv.style.transform=`translate(${a}%, ${b}%) rotate(${c}deg)`
-            console.log(c)
-            if( c === -43.04999999999969) {
-                clearInterval(et)
-                this.rear(a, b, c)
+        const doThisUpToPosition = setInterval(() => { 
+            positionOnX  = positionOnX  - 0.5
+            car.style.transform=`translate(${positionOnX }%, 0%)`
+
+            if(positionOnX  < -[position]) {
+                clearInterval(doThisUpToPosition )
+                if(isFull === false) {
+                this.startManeuver(positionOnX, car, finalPosition, rightOrLeft)
+                }
             }
         }, 20)
     }
 
-    rear = (x, y, z) => {
-        const animationCarDiv = document.getElementsByClassName('Car')[0]
-        let a = x
-        let b = y
-        let c = z
-        const iu = setInterval(() => { 
-            a = a + 0.1
-            b = b - 0.16
-            c = c + 0.1
-            animationCarDiv.style.transform=`translate(${a}%, ${b}%) rotate(${c}deg)`
-            // animationCarDiv.style.left=`-${a}%`
-            // animationCarDiv.style.top=`${b}%`
-            console.log(b)
-            if(c > 0) {
-                clearInterval(iu)
-                // this.final()
+    startManeuver = (xPosition, elemCar, finalPosition, rightOrLeft) => {
+        let positionOnX = xPosition
+        const car = elemCar
+        let positionOnY = 0
+        let rotationAngle = 0
+        const finalRotationAgle = rightOrLeft ? -43.04999999999969 : 43.04999999999969
+
+        const doThisUpToPosition = setInterval(() => { 
+            positionOnX = positionOnX + 0.1
+            positionOnY = rightOrLeft ? positionOnY - 0.06 : positionOnY + 0.06
+            rotationAngle = rightOrLeft ? rotationAngle - 0.05 : rotationAngle + 0.05
+
+            car.style.transform=`translate(${positionOnX}%, ${positionOnY}%) rotate(${rotationAngle}deg)`
+            if( rotationAngle === finalRotationAgle) {
+                clearInterval(doThisUpToPosition)
+                this.maneuverPhaseTwo(positionOnX, positionOnY, rotationAngle, car, finalPosition, rightOrLeft)
+            }
+        }, 20)
+    }
+
+    maneuverPhaseTwo = (xPosition, yPosition, Rotation, elemCar, finalPosition, rightOrLeft) => {
+        let positionOnX = xPosition
+        const car = elemCar
+        let positionOnY = yPosition
+        let rotationAngle = Rotation
+        const finalRotationAngle = 0
+
+        const doThisUpToPosition = setInterval(() => { 
+            positionOnX = positionOnX + 0.1
+            positionOnY = rightOrLeft ? positionOnY - 0.16 : positionOnY + 0.16
+            rotationAngle = rightOrLeft ? rotationAngle + 0.1 : rotationAngle - 0.1
+
+            car.style.transform=`translate(${positionOnX}%, ${positionOnY}%) rotate(${rotationAngle}deg)`
+
+            if(rotationAngle > finalRotationAngle && rightOrLeft === true) {
+                clearInterval(doThisUpToPosition)
+                this.finalManeuver(positionOnX, positionOnY, rotationAngle, car, finalPosition)
+            }
+            else if (rotationAngle < finalRotationAngle && rightOrLeft === false) {
+                clearInterval(doThisUpToPosition)
+                this.finalManeuver(positionOnX, positionOnY, rotationAngle, car, finalPosition)
             }
         }, 20)
         
     }
 
-    final = (position) => {
-        const animationCarDiv = document.getElementsByClassName('Car')[0]
-        let a = animationCarDiv.style.left
-        let b = animationCarDiv.style.top
-        let c = -33.1000000000002
-        console.log('a: ', a, 'b: ', b)
-        setInterval(() => { 
-            a = a - 0.01
-            b = b - 0.01
-            c = c + 0.1
-            animationCarDiv.style.left=`-${a}%`
-            animationCarDiv.style.top=`${b}%`
-            animationCarDiv.style.transform=`rotate(${c}deg)`
-            // if(c === 0) {
-            //     clearInterval(et)
-            //     this.rear(a, b)
-            // }
+    finalManeuver = (xPosition, yPosition, Rotation, elemCar, finalPosition) => {
+        let positionOnX = xPosition
+        const car = elemCar
+        const positionOnY = yPosition
+        const rotationAngle = Rotation
+        const finalpositionOnX = finalPosition
+
+        const doThisUpToPosition = setInterval(() => { 
+            positionOnX = positionOnX - 0.2
+            car.style.transform=`translate(${positionOnX}%, ${positionOnY}%) rotate(${rotationAngle}deg)`
+
+            if(positionOnX < - finalpositionOnX) {
+                clearInterval(doThisUpToPosition)
+            }
         }, 20)
     }
 
@@ -140,6 +171,7 @@ Road.propTypes = {
 const mapStateToProps = state => ({
     css: state.css.css,
     action: state.action.msg,
+    game: state.game,
     places: state.places
 })
 

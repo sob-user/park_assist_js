@@ -28,14 +28,13 @@ export class Car extends Component {
         return (
             <div className='Car' 
             style={this.props.style}>
-                {/* <Animated 
-                animationIn='fadeInRight' 
-                isVisible={this.state.isVisible}> */}
-                    <img src={car} 
-                    alt='car park assit game js' 
-                    style={RoadCar}
-                    />
-                {/* </Animated> */}
+            <Animated 
+            animationIn='fadeInRight' 
+            isVisible={this.state.isVisible}>
+                <img src={car} 
+                alt='car park assit game js' 
+                style={RoadCar}/>
+            </Animated>
             </div>
         )
     }
