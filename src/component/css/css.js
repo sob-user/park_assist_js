@@ -1,3 +1,5 @@
+import Place from '../img/place.png';
+
 export const css = {
     LandingPage: {
         width: '100vw',
@@ -122,7 +124,10 @@ export const css = {
         width: '25%',
         display: 'flex',
         textAlign: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        background: `url(${Place})`,
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat'
     },
 
     ParkingPlaceDown: {
@@ -287,6 +292,7 @@ export const css = {
         width: '20%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'relative'
     }
 }

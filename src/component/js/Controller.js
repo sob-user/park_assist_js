@@ -2,7 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import {Animated} from "react-animated-css"
-import { setOccupationRate, actions, chooseRight, chooseLeft, startingGame } from '../../actions/gameAction'
+import { 
+setOccupationRate,
+actions,
+chooseRight,
+chooseLeft,
+startingGame 
+} from '../../actions/gameAction'
 
 export class Controller extends Component {
     state= {
@@ -47,7 +53,14 @@ export class Controller extends Component {
 
     startingGame = () => {
         if(this.props.game.start !== true) {
-            this.props.startingGame()
+            if(this.props.game.right === false && this.props.game.left === false) {
+                console.log('choose side')
+            }
+            else if(this.props.game.right === true || this.props.game.left === true) {
+                this.props.startingGame()
+                this.props.actions('STARTING_GAME')
+            }
+            
         }
     }
 

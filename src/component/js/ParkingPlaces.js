@@ -93,7 +93,7 @@ export class ParkingPlaces extends Component {
         const {ParkingPlaceUpCar} = css
 
         const img = (
-            <img src={car} alt='car park assit game js'className='ParkingPlaceUpCar' style={ParkingPlaceUpCar}/>
+            <img src={car} alt='car park assit game js' className='ParkingPlaceUpCar' style={ParkingPlaceUpCar}/>
         )
 
         return (

@@ -11,7 +11,6 @@ ACTION_RESET
         switch(action.type) {
             case ACTION_GAME:
                 return {
-                    ...action.payload,
                     msg: action.payload
                 }
             case ACTION_RESET:
