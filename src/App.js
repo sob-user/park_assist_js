@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import  store from './component/store';
-import SwitchMAn from './component/SwitchMan'
+import Switchman from './component/Switchman'
 import './App.css';
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
-          <SwitchMAn />
+          <Switchman />
         </div>
       </Provider>
     )

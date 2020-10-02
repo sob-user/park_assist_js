@@ -1,5 +1,3 @@
-import Place from '../img/place.png';
-
 export const css = {
     LandingPage: {
         width: '100vw',
@@ -16,6 +14,21 @@ export const css = {
         flexDirection: 'column',
         alignItems:'center',
         justifyContent: 'space-between'
+    },
+
+    BannedPage: {
+        height: '100vh',
+        width: '100vw',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    BannedMessage: {
+        width: '80%',
+        height: '20%',
+        fontFamily: 'Lora',
+        textAlign: 'center'
     },
 
     LogoContainer: {
@@ -53,19 +66,20 @@ export const css = {
 
     sidewalkDown: {
         width: '100vw',
-        height: '35vh',
-        display: 'flex'
+        height: '25vh',
+        display: 'flex',
+        alignItems: 'flex-end'
     },
 
     road: {
         width: '100vw',
-        height: '16vh',
+        height: '10vh',
         display: 'flex'
     },
 
     sidewalkLeftTop: {
         width: '25%',
-        height: '100%',
+        height: '90%',
         borderBottomRightRadius: '20px',
         background: '#797474b8',
         borderBottom: '5px solid #36333257'
@@ -73,7 +87,7 @@ export const css = {
 
     sidewalkLeftBottom: {
         width: '25%',
-        height: '98%',
+        height: '90%',
         borderTopRightRadius: '20px',
         borderTop: '5px solid #36333257',
         background: '#797474b8'
@@ -86,12 +100,12 @@ export const css = {
 
     sidewalkMiddleBottom: {
         width: '80%',
-        height: '98%'
+        height: '100%'
     },
 
     sidewalkRightTop: {
         width: '25%',
-        height: '100%',
+        height: '90%',
         borderBottomLeftRadius: '20px',
         borderBottom: '5px solid #36333257',
         background: '#797474b8'
@@ -99,7 +113,7 @@ export const css = {
 
     sidewalkRightBottom: {
         width: '25%',
-        height: '98%',
+        height: '90%',
         borderTopLeftRadius: '20px',
         borderTop: '5px solid #36333257',
         background: '#797474b8'
@@ -124,40 +138,42 @@ export const css = {
         width: '25%',
         display: 'flex',
         textAlign: 'center',
-        alignItems: 'center',
-        background: `url(${Place})`,
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat'
+        // alignItems: 'center'
     },
 
     ParkingPlaceDown: {
         height: '100%',
-        width: '12.5%',
+        width: '25%',
         display: 'flex',
         textAlign: 'center',
-        alignItems: 'center'
+        alignItems: 'flex-end'
     },
 
     ParkingPlaceUpCar: {
         height: 'auto',
-        width: '90%'
+        width: '75%'
     },
 
     ParkingPlaceDownCar: {
         height: 'auto',
-        width: '90%'
+        width: '75%'
+    },
+
+    RoadCar: {
+        height: 'auto',
+        width: '76%'
     },
 
     parkingPlacesBottom: {
         width: '100%',
-        height: '80%',
+        height: '50%',
         display: 'flex',
         borderRadius: '10px'
     },
 
     marginBlockBottom: {
         width: '100%',
-        height: '20%',
+        height: '50%',
         borderTop: '5px solid #36333257',
         background: '#797474b8'
     },
@@ -284,12 +300,12 @@ export const css = {
 
     animationCar: {
         height: '100%',
-        width: '90%'
+        width: '85%'
     },
 
     car: {
         height: '100%',
-        width: '20%',
+        width: '15%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

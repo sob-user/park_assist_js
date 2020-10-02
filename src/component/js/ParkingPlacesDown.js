@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import {Animated} from "react-animated-css"
-import  car  from '../img/80787564365.png'
+import  car  from '../img/25667859102.png'
 import { actionsReset } from '../../actions/gameAction'
 
 export class ParkingPlacesDown extends Component {
@@ -14,7 +14,7 @@ export class ParkingPlacesDown extends Component {
     }
 
     componentDidMount() {
-        this.generateTablePlaces(8, this.props.game.rate)
+        this.generateTablePlaces(4, this.props.game.rate)
     }
 
     componentDidUpdate(prevProps) {
@@ -31,7 +31,7 @@ export class ParkingPlacesDown extends Component {
 
         if(action !== prevProps.action) {
             if(action=== 'SET_OCCUPATION_RATE') {
-                this.generateTablePlaces(8, this.props.game.rate)
+                this.generateTablePlaces(4, this.props.game.rate)
                 this.props.actionsReset()
             }
         }

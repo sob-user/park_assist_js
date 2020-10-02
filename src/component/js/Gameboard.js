@@ -4,6 +4,7 @@ import Road from './Road'
 import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import SidewalkDown from './SidewalkDown'
+import Road2 from './Road2'
 import Controller from './Controller'
 
 export class Gameboard extends Component {
@@ -18,6 +19,7 @@ export class Gameboard extends Component {
                 <Sidewalk />
                 <Road />
                 <SidewalkDown />
+                <Road2 />
                 <Controller />
             </div>
         )

@@ -8,14 +8,14 @@ export class Road extends Component {
         const action = this.props.action
 
             if(action === 'STARTING_GAME') {
-                this.checkEmptyPlaces()
+                this.findEmptyPlacesAndLaunchAnimantion()
             }
     }
 
-    checkEmptyPlaces() {
+    findEmptyPlacesAndLaunchAnimantion() {
         const places =this.props.places
         const up = places.up
-        const arrayPosition = [76, 63, 48, 32]
+        const arrayPosition = [522, 452, 350, 248]
         const blank = []
         up.map((place, index) => {
             if(place.isEmpty === true) {
@@ -45,49 +45,53 @@ export class Road extends Component {
         const animationCarDiv = document.getElementsByClassName('Car')[0]
         let counter = 0
                 const aa = setInterval(() => { 
-                    counter = counter - 0.1
-                    animationCarDiv.style.left=`${counter}%`
+                    counter = counter - 0.5
+                    animationCarDiv.style.transform=`translate(${counter}%, 0%)`
                     if(counter < -[position]) {
                         clearInterval(aa)
-                        this.engageRear(position)
+                        this.engageRear(counter)
                     }
                 }, 20)
     }
 
-    engageRear = (position) => {
+    engageRear = (counter) => {
         const animationCarDiv = document.getElementsByClassName('Car')[0]
-        let a = position
+        let a = counter
         let b = 0
         let c = 0
         const et = setInterval(() => { 
-            a = a - 0.01
-            b = b - 0.01
-            c = c - 0.1
-            animationCarDiv.style.left=`-${a}%`
-            animationCarDiv.style.top=`${b}%`
-            animationCarDiv.style.transform=`rotate(${c}deg)`
-            if(c === -33.1000000000002) {
+            a = a + 0.1
+            b = b - 0.06
+            c = c - 0.05
+            // animationCarDiv.style.left=`-${a}%`
+            // animationCarDiv.style.top=`${b}%`
+            animationCarDiv.style.transform=`translate(${a}%, ${b}%) rotate(${c}deg)`
+            console.log(c)
+            if( c === -43.04999999999969) {
                 clearInterval(et)
-                this.rear(a, b)
+                this.rear(a, b, c)
             }
         }, 20)
     }
 
-    rear = (x, y) => {
+    rear = (x, y, z) => {
         const animationCarDiv = document.getElementsByClassName('Car')[0]
         let a = x
         let b = y
+        let c = z
         const iu = setInterval(() => { 
-            a = a - 0.09
-            b = b - 0.5
-            animationCarDiv.style.left=`-${a}%`
-            animationCarDiv.style.top=`${b}%`
+            a = a + 0.1
+            b = b - 0.16
+            c = c + 0.1
+            animationCarDiv.style.transform=`translate(${a}%, ${b}%) rotate(${c}deg)`
+            // animationCarDiv.style.left=`-${a}%`
+            // animationCarDiv.style.top=`${b}%`
             console.log(b)
-            if(b === -58.809999999999974) {
+            if(c > 0) {
                 clearInterval(iu)
-                this.final()
+                // this.final()
             }
-        }, 200)
+        }, 20)
         
     }
 

@@ -24,18 +24,18 @@ export class Car extends Component {
 
     render() {
         const {css} = this.props
-        const {ParkingPlaceUpCar} = css
+        const {RoadCar} = css
         return (
             <div className='Car' 
             style={this.props.style}>
-                <Animated 
+                {/* <Animated 
                 animationIn='fadeInRight' 
-                isVisible={this.state.isVisible}>
+                isVisible={this.state.isVisible}> */}
                     <img src={car} 
                     alt='car park assit game js' 
-                    style={ParkingPlaceUpCar}
+                    style={RoadCar}
                     />
-                </Animated>
+                {/* </Animated> */}
             </div>
         )
     }
