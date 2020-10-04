@@ -34,7 +34,7 @@ export class ParkingPlaces extends Component {
         }
 
         if(action !== prevProps.action) {
-            if(action=== 'SET_OCCUPATION_RATE') {
+            if(action === 'SET_OCCUPATION_RATE') {
                 this.generateTablePlaces(4, this.props.game.rate)
                 this.props.actionsReset()
             }

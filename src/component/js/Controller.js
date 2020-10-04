@@ -62,6 +62,9 @@ export class Controller extends Component {
             }
             
         }
+        else {
+            this.props.actions('NEXT')
+        }
     }
 
     render() {

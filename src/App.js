@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import  store from './component/store';
-import Switchman from './component/Switchman'
+import Switchman from './component/SwitchMan'
 import './App.css';
 
 class App extends Component {

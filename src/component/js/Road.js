@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Car from './Car'
 import { connect } from 'react-redux'
 import propTypes from 'prop-types'
+import {changePlacesUp, changePlacesDown} from '../../actions/generateTableAction'
+import {actions} from '../../actions/gameAction'
 
 export class Road extends Component {
     
@@ -142,26 +144,27 @@ export class Road extends Component {
 
             if(positionOnX < - finalpositionOnX) {
                 clearInterval(doThisUpToPosition)
-            this.findIndexOfPlaceTaken(position, rightOrLeft, positionToStartRear)
+            this.findIndexOfPlaceTaken(position, rightOrLeft, positionToStartRear, elemCar)
             }
         }, 20)
     }
 
-    findIndexOfPlaceTaken = (position, rightOrLeft, positionToStartRear) => {
+    findIndexOfPlaceTaken = (position, rightOrLeft, positionToStartRear, elemCar) => {
         positionToStartRear.forEach((element, index) => {
             if(element === position) {
-                this.addPlaceTakenInPlacesArray(index, rightOrLeft)
+                this.addPlaceTakenInPlacesArray(index, rightOrLeft, elemCar)
             }
         });
     }
 
-    addPlaceTakenInPlacesArray = (index, rightOrLeft) => {
-        const placeUp = this.props.places.up[index]
-        const placeDown = this.props.places.down[index]
-        const toggleLeftRight = rightOrLeft ? placeUp : placeDown
+    addPlaceTakenInPlacesArray = (index, rightOrLeft, elemCar) => {
+        const placeUp = this.props.places.up
+        const placeDown = this.props.places.down
+        const toggleLeftRight = rightOrLeft ? placeUp[index] : placeDown[index]
         toggleLeftRight.isEmpty = false
-        console.log(toggleLeftRight)
-    
+        rightOrLeft ? this.props.changePlacesUp(placeUp) : this.props.changePlacesDown(placeDown)
+        rightOrLeft ? this.props.actions('PLACES_UP_CHANGED') : this.props.actions('PLACES_DOWN_CHANGED')
+        elemCar.style.transform = 'translate(0%, 0%) rotate(0deg)'
     }
 
     render() {
@@ -196,6 +199,8 @@ const mapStateToProps = state => ({
 export default 
 connect(
 mapStateToProps,
-null
+{changePlacesUp,
+changePlacesDown,
+actions}
 )
 (Road)
