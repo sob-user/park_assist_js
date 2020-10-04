@@ -180,11 +180,11 @@ export const css = {
 
     controller: {
         height: '24vh',
-        with: '100vw',
-        background: '#2f2929',
+        width: '100vw',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        background: '#676262'
     },
 
     startGame: {
@@ -210,7 +210,7 @@ export const css = {
     },
 
     OccupationRate: {
-        height: '50%',
+        height: '80px',
         width: '180px'
     },
 
@@ -257,7 +257,7 @@ export const css = {
     },
 
     ChooseYourSide: {
-        height: '50%',
+        height: '80px',
         width: '180px',
         display: 'flex',
         alignItems: 'center',

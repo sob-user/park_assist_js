@@ -22,6 +22,7 @@ export class ParkingPlaces extends Component {
         const action = this.props.action
         const sidewalkRight = this.props.game.right
         const isStarted = this.props.game.start
+        const car = document.getElementsByClassName('ParkingPlaces')[0]
 
         if(this.state.loaded === false) {
             this.setState({loaded: true})
@@ -39,19 +40,19 @@ export class ParkingPlaces extends Component {
 
         if(sidewalkRight !== prevProps.sidewalkRight) {
             if(sidewalkRight === true) {
-                document.getElementsByClassName('ParkingPlaces')[0].style.background='#36c8f440'
-                document.getElementsByClassName('ParkingPlaces')[0].style.border='1px dashed white'
+                car.style.background='#36c8f440'
+                car.style.border='1px dashed white'
             }
             else if(sidewalkRight === false) {
-                document.getElementsByClassName('ParkingPlaces')[0].style.background='none'
-                document.getElementsByClassName('ParkingPlaces')[0].style.border='none'
+                car.style.background='none'
+                car.style.border='none'
             }
         }
 
         if(isStarted !== prevProps.isStarted) {
             if(isStarted !== false) {
-                document.getElementsByClassName('ParkingPlaces')[0].style.background='none'
-                document.getElementsByClassName('ParkingPlaces')[0].style.border='none'
+                car.style.background='none'
+                car.style.border='none'
             }
         }
     }
