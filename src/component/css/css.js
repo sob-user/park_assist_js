@@ -60,20 +60,20 @@ export const css = {
 
     sidewalkUp: {
         width: '100vw',
-        height: '25vh',
+        height: '30vh',
         display: 'flex'
     },
 
     sidewalkDown: {
         width: '100vw',
-        height: '25vh',
+        height: '30vh',
         display: 'flex',
         alignItems: 'flex-end'
     },
 
     road: {
         width: '100vw',
-        height: '10vh',
+        height: '16vh',
         display: 'flex'
     },
 
@@ -151,17 +151,17 @@ export const css = {
 
     ParkingPlaceUpCar: {
         height: 'auto',
-        width: '75%'
+        width: '90%'
     },
 
     ParkingPlaceDownCar: {
         height: 'auto',
-        width: '75%'
+        width: '90%'
     },
 
     RoadCar: {
         height: 'auto',
-        width: '76%'
+        width: '91%'
     },
 
     parkingPlacesBottom: {
@@ -184,7 +184,8 @@ export const css = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
-        background: '#676262'
+        background: '#676262',
+        position: 'relative'
     },
 
     startGame: {

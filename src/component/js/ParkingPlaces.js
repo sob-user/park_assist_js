@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {placesUp} from '../../actions/generateTableAction'
+import {placesUp, placesDown} from '../../actions/generateTableAction'
 import { v4 as uuidv4 } from 'uuid'
 import { connect } from 'react-redux'
 import propTypes from 'prop-types'
@@ -10,6 +10,7 @@ import { actionsReset } from '../../actions/gameAction'
 export class ParkingPlaces extends Component {
     state = {
         placesUp: {},
+        placesDown: {},
         loaded: null,
         totalPlaces: null
     }
@@ -26,8 +27,9 @@ export class ParkingPlaces extends Component {
 
         if(this.state.loaded === false) {
             this.setState({loaded: true})
-            if(this.state.placesUp.length !== 0) {
+            if(this.state.placesUp.length !== 0 || this.state.placesDown.length !== 0) {
                 this.props.placesUp(this.state.placesUp)
+                this.props.placesDown(this.state.placesDown)
             }
         }
 
@@ -59,23 +61,27 @@ export class ParkingPlaces extends Component {
 
     generateTablePlaces = (numOfPlaces, occupatioRate) => {
         let counter = 0
-        const places = []
+        const placesUp = []
+        const placesDown = []
         const availablePlaces = Math.floor((numOfPlaces/100) * occupatioRate)
     
         for (let init = 0; init < availablePlaces; init++) {
-            places.push({ id: uuidv4(), isEmpty: false })
+            placesUp.push({ id: uuidv4(), isEmpty: false })
+            placesDown.push({ id: uuidv4(), isEmpty: false })
             counter++
         }
         
         const placeAlreadyTaken = (numOfPlaces - availablePlaces)
         for (let init = 0; init < placeAlreadyTaken; init++) {
-            places.push({ id: uuidv4(), isEmpty: true })
+            placesUp.push({ id: uuidv4(), isEmpty: true })
+            placesDown.push({ id: uuidv4(), isEmpty: true })
             counter++
         }    
-        this.shufflePlaces(places)
 
+        this.shufflePlaces(placesUp)
+        this.shufflePlaces(placesDown)
         if(counter === numOfPlaces) {
-            this.setState({placesUp: places, loaded: false})
+            this.setState({placesUp, placesDown, loaded: false})
         }
     }
 
@@ -96,7 +102,7 @@ export class ParkingPlaces extends Component {
         const img = (
             <img src={car} alt='car park assit game js' className='ParkingPlaceUpCar' style={ParkingPlaceUpCar}/>
         )
-
+        
         return (
             <div className='ParkingPlaces' style={this.props.style}>
                 {places.map((place) => (
@@ -129,5 +135,5 @@ const mapStateToProps = state => ({
 
 export default connect(
 mapStateToProps,
-{placesUp, actionsReset})
+{placesUp, placesDown, actionsReset})
 (ParkingPlaces)

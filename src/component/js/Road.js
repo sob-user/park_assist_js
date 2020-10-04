@@ -50,23 +50,23 @@ export class Road extends Component {
         })
 
         if(howManyPlacesIsFree.length === 1) {
-            this.countdownBeforeForward(howManyPlacesIsFree[0], false, finalPositionsOfFirstFreePlaces[0], rightOrLeft)
+            this.countdownBeforeForward(howManyPlacesIsFree[0], false, finalPositionsOfFirstFreePlaces[0], rightOrLeft, positionToStartRear)
         } 
         else if(howManyPlacesIsFree.length === 0) {
             this.countdownBeforeForward(finalPositionsifNoFreePlaces, true)
         }
         else {
-            this.countdownBeforeForward(howManyPlacesIsFree[1], false, finalPositionsOfFirstFreePlaces[1], rightOrLeft)
+            this.countdownBeforeForward(howManyPlacesIsFree[1], false, finalPositionsOfFirstFreePlaces[1], rightOrLeft, positionToStartRear)
         }
     }
 
-    countdownBeforeForward(position, isFull, finalPosition, rightOrLeft) {
+    countdownBeforeForward(position, isFull, finalPosition, rightOrLeft, positionToStartRear) {
         setTimeout(() => { 
-            this.moveForwardUntilPosition(position, isFull, finalPosition, rightOrLeft)
+            this.moveForwardUntilPosition(position, isFull, finalPosition, rightOrLeft, positionToStartRear)
         }, 2000)
     }
 
-    moveForwardUntilPosition = (position, isFull, finalPosition, rightOrLeft) => {
+    moveForwardUntilPosition = (position, isFull, finalPosition, rightOrLeft, positionToStartRear) => {
         const car = document.getElementsByClassName('Car')[0]
         let positionOnX = 0
 
@@ -77,13 +77,13 @@ export class Road extends Component {
             if(positionOnX  < -[position]) {
                 clearInterval(doThisUpToPosition )
                 if(isFull === false) {
-                this.startManeuver(positionOnX, car, finalPosition, rightOrLeft)
+                this.startManeuver(positionOnX, car, finalPosition, rightOrLeft, position, positionToStartRear)
                 }
             }
         }, 20)
     }
 
-    startManeuver = (xPosition, elemCar, finalPosition, rightOrLeft) => {
+    startManeuver = (xPosition, elemCar, finalPosition, rightOrLeft, position, positionToStartRear) => {
         let positionOnX = xPosition
         const car = elemCar
         let positionOnY = 0
@@ -98,12 +98,12 @@ export class Road extends Component {
             car.style.transform=`translate(${positionOnX}%, ${positionOnY}%) rotate(${rotationAngle}deg)`
             if( rotationAngle === finalRotationAgle) {
                 clearInterval(doThisUpToPosition)
-                this.maneuverPhaseTwo(positionOnX, positionOnY, rotationAngle, car, finalPosition, rightOrLeft)
+                this.maneuverPhaseTwo(positionOnX, positionOnY, rotationAngle, car, finalPosition, rightOrLeft, position, positionToStartRear)
             }
         }, 20)
     }
 
-    maneuverPhaseTwo = (xPosition, yPosition, Rotation, elemCar, finalPosition, rightOrLeft) => {
+    maneuverPhaseTwo = (xPosition, yPosition, Rotation, elemCar, finalPosition, rightOrLeft, position, positionToStartRear) => {
         let positionOnX = xPosition
         const car = elemCar
         let positionOnY = yPosition
@@ -119,17 +119,17 @@ export class Road extends Component {
 
             if(rotationAngle > finalRotationAngle && rightOrLeft === true) {
                 clearInterval(doThisUpToPosition)
-                this.finalManeuver(positionOnX, positionOnY, rotationAngle, car, finalPosition)
+                this.finalManeuver(positionOnX, positionOnY, rotationAngle, car, finalPosition, position, rightOrLeft, positionToStartRear)
             }
             else if (rotationAngle < finalRotationAngle && rightOrLeft === false) {
                 clearInterval(doThisUpToPosition)
-                this.finalManeuver(positionOnX, positionOnY, rotationAngle, car, finalPosition)
+                this.finalManeuver(positionOnX, positionOnY, rotationAngle, car, finalPosition, position, rightOrLeft, positionToStartRear)
             }
         }, 20)
         
     }
 
-    finalManeuver = (xPosition, yPosition, Rotation, elemCar, finalPosition) => {
+    finalManeuver = (xPosition, yPosition, Rotation, elemCar, finalPosition, position, rightOrLeft, positionToStartRear) => {
         let positionOnX = xPosition
         const car = elemCar
         const positionOnY = yPosition
@@ -142,8 +142,26 @@ export class Road extends Component {
 
             if(positionOnX < - finalpositionOnX) {
                 clearInterval(doThisUpToPosition)
+            this.findIndexOfPlaceTaken(position, rightOrLeft, positionToStartRear)
             }
         }, 20)
+    }
+
+    findIndexOfPlaceTaken = (position, rightOrLeft, positionToStartRear) => {
+        positionToStartRear.forEach((element, index) => {
+            if(element === position) {
+                this.addPlaceTakenInPlacesArray(index, rightOrLeft)
+            }
+        });
+    }
+
+    addPlaceTakenInPlacesArray = (index, rightOrLeft) => {
+        const placeUp = this.props.places.up[index]
+        const placeDown = this.props.places.down[index]
+        const toggleLeftRight = rightOrLeft ? placeUp : placeDown
+        toggleLeftRight.isEmpty = false
+        console.log(toggleLeftRight)
+    
     }
 
     render() {

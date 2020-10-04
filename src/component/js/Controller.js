@@ -149,6 +149,9 @@ const mapStateToProps = state => ({
 export default 
 connect(
 mapStateToProps,
-{setOccupationRate, actions, chooseRight, chooseLeft, startingGame}
-)
-(Controller)
+{setOccupationRate,
+actions, 
+chooseRight, 
+chooseLeft, 
+startingGame}
+)(Controller)
